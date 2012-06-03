@@ -57,7 +57,7 @@ def sms_messages(request):
 
 
 
-def incoming(request,From=""):
+def incoming(request):
 
 
     print "In incoming"
@@ -72,6 +72,8 @@ def incoming(request,From=""):
 
     from_number = request.GET['From']
     message = request.GET['Body']
+
+    print request.GET
 
     print from_number
     print message
