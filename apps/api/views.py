@@ -8,6 +8,40 @@ from django.template import RequestContext
 from utils import *
 
 
+@login_required
+@access_required("tester")
+def sms_send(request):
+    if request.method == 'POST':
+
+        form = SMSSendForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "SMS Sent.")
+            return render_to_response('smsreminders/send.html',
+                    {'form': SMSSendForm()},
+                context_instance = RequestContext(request))
+            #the form has errors
+        return render_to_response('smsreminders/send.html',
+                {'form': form},
+            context_instance = RequestContext(request))
+
+    #request is a GET (not a POST)
+    return render_to_response('smsreminders/send.html',
+            {'form': SMSSendForm()},
+        context_instance = RequestContext(request))
+
+
+@login_required
+@access_required("tester")
+def sms_messages(request):
+    smsmessages=get_messages()
+    return render_to_response('smsreminders/messages.html',
+            {'smsmessages': smsmessages},
+        context_instance = RequestContext(request))
+
+
+
 def incoming(request):
 
 

@@ -24,6 +24,8 @@ urlpatterns = patterns('',
      url(r'^incoming/$',incoming,
         name='incoming'),
 
+    url(r'^send/$', sms_send, name='sms_send'),
+    url(r'^messages/$', sms_messages, name='sms_messages'),
 
     # Static Pages
 
