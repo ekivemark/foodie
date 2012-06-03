@@ -28,12 +28,13 @@ urlpatterns = patterns('',
     #(r'^api/$', include('foodie.apps.api.urls')),
     url(r'^api/message/', 'foodie.apps.api.views.sms_messages', name="sms_messages"),
     url(r'^api/send/$', 'foodie.apps.api.views.sms_send', name='sms_send'),
+    url(r'^api/incoming/$', 'foodie.apps.api.views.incoming', name='incoming'),
+
     url(r'^$', 'foodie.apps.home.views.home'),
     # App urls -----------------------------------------------------------
     # url(r'^api/(?P<pat_id>\S+)$', 'foodie.apps.api.urls',
     #    name='home'),
     (r'^nutrition/',  include('foodie.apps.nutrition.urls')),
-
     # Static Pages
 
 

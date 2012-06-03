@@ -30,9 +30,9 @@ def send_sms_twilio(twilio_body, twilio_to,
              'body': message.body}
 
 
-    #print "To:"+twilio_to
-    #print "From:"+twilio_from
-    #print "Message:"+twilio_body
+    print "To:"+twilio_to
+    print "From:"+twilio_from
+    print "Message:"+twilio_body
 
 
     return d

@@ -232,13 +232,22 @@ DEFAULT_FROM_EMAIL='hive@videntity.com'
 SERVER_EMAIL='hive@videntity.com'
 
 # Twilio SMS Login Settings ---------------------------------------------------
-TWILIO_DEFAULT_FROM = "+4107093335"
+TWILIO_DEFAULT_FROM = "+14107093335"
+#TWILIO_DEFAULT_FROM = "+14155992671"
 TWILIO_API_BASE = "https://api.twilio.com/2010-04-01"
-TWILIO_SID = "APf8cf0431be4a49cf82166e998ad8d5f2"
+#TWILIO_SID = "AP7a8782fee873e22004734f515c472f86"
+#TWILIO_SID = "APcaaa06de9b70429c81146e2c5a7aa5f1"
+# ACCOUNT_SID
+TWILIO_SID ="ACe6fcd771d89671dc416bb2f07db4cea9"
+
 TWILIO_AUTH_TOKEN = "c4c870b94031af6145c8342f13334648"
+
+# c4c870b94031af6145c8342f13334648
 TWILIO_API_VERSION = '2010-04-01'
 SMS_LOGIN_TIMEOUT_MIN = 60
 
+# APf8cf0431be4a49cf82166e998ad8d5f2
+# Token: c4c870b94031af6145c8342f13334648
 # --------------------------------------------------------------------------
 # HIVE Settings --------------------------------------------------------------
 # --------------------------------------------------------------------------
