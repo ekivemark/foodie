@@ -5,10 +5,11 @@ from django.conf.urls.defaults import patterns, include, url
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from views import *
+from utils import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from views import *
+
 
 
 admin.autodiscover()
