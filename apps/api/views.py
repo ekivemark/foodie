@@ -82,7 +82,8 @@ def incoming(request):
     if from_number in callers:
         message = callers[from_number] + ", thanks for the message!"
     else:
-        message = "Get the Small Fries! Thanks for being LessBadd!"
+        message = "Big Mac has 563 Calories. Try a Cheeseburger (313 or a hamburger (265)"
+        # message = "Get the Small Fries! Thanks for being LessBadd!"
 
 
     twilio_body = message
