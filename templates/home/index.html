@@ -3,6 +3,13 @@
         <title>LessBad</title>
         <link rel="stylesheet" type="text/css" href="http://foodie.ekive.com/style.css" />
         
+        <script type="text/javascript">
+function formSubmit()
+{
+document.getElementById("frm1").submit();
+}
+</script>
+        
     </head>
     <body>
 
@@ -11,13 +18,13 @@
 
   				<h1>LessBad</h1>
             Let us help you decide what to eat!<br /><br />
-             <form enctype="multipart/form-data" action="/nutrition/suggest" method="POST">
+             <form id="frm1" enctype="multipart/form-data" action="/nutrition/suggest" method="POST">
             Where are you going?  <input type="text" name="place" id="restaurant" /> <br /><br />
 	    
 	    What are you planning on eating?   <input type="text" name="item" id="food" /> <br /><br />
             
             {% csrf_token %}
-            <input type="button" name="submit" id="submit" value="submit" />
+            <input type="button" name="submit" id="submit"  value="submit" onclick="formSubmit()"/>
               </form>
               
               
