@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from models import *
+from forms import SuggestForm
 #def loaddata(request):
 #    csvfile = csv.reader(open('/home/alan/django-projects/foodie/data/nutrition3.csv', 'rb'), delimiter=',')
 #    rowindex = 0
