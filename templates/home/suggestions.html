@@ -5,11 +5,11 @@
         
     </head>
     <body>
-
+      <h1>Have one of these instead</h1>
        <div id="content">
             {% for s in suggestions %}
             
-	    {{s}}
+	    {{s.item}} with {{s.calories}} calories<br>
 	    {% endfor %}
        </div>
     </body>

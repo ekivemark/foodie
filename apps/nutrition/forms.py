@@ -11,15 +11,18 @@ class SuggestForm(forms.Form):
         place = self.cleaned_data.get('place', "")
         item = self.cleaned_data.get('item', "")
         
-        place=place.upper()
-        item=item.upper()
+        #place=place.upper()
+        #item=item.upper()
         
         l=[]
         if item:
+            print place, item
             nut = Nutrition.objects.filter(place=place, item=item)
         else:
             nut = Nutrition.objects.filter(place=place)
             
+        print nut
+        
         suggestions = Nutrition.objects.filter(place=place,
                                             calories__lt=nut[0].calories)
         for s in suggestions:
@@ -29,4 +32,4 @@ class SuggestForm(forms.Form):
             suggestion['calories']=s.calories
             l.append(json.dumps(suggestion, indent=4))
         
-        return l
+        return suggestions
