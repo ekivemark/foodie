@@ -1,7 +1,8 @@
 body {
 	margin:50px 0px; padding:0px;
 	text-align:center;
-        background-color:rgb(224,228,204);
+             background-image:url('bkg.png');
+        background-color:#cccccc;
     font:  Helvetica;
         font-size:50px;
 }
@@ -11,7 +12,7 @@ body {
 	text-align: center;
 	margin:0px auto;
 	padding:15px;
-    background-color:rgb(167,219,216);
+    background-color:rgb(182,208,142);
     -moz-border-radius: 15px;
     border-radius: 15px;
     font-family:Helvetica;
@@ -24,6 +25,17 @@ body {
 }
 
 #restaurant {
+	margin-top: 20px;
+    width:80%;
+    height:90px;
+        font-size:70px;
+        color:rgb(84,36,55);
+        border-radius:15px;
+        background-color:rgb(224,228,204);
+        border: none;
+}
+
+#food {
 	margin-top: 20px;
     width:80%;
     height:90px;
