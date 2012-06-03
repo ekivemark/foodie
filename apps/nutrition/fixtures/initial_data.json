@@ -53044,5 +53044,32 @@
             "place": "PUDDINGS", 
             "calories": "0"
         }
+    }, 
+    {
+        "pk": 5895, 
+        "model": "nutrition.nutrition", 
+        "fields": {
+            "item": "Big Mac", 
+            "place": "mcdonalds", 
+            "calories": "563"
+        }
+    }, 
+    {
+        "pk": 5896, 
+        "model": "nutrition.nutrition", 
+        "fields": {
+            "item": "cheeseburger", 
+            "place": "mcdonalds", 
+            "calories": "313"
+        }
+    }, 
+    {
+        "pk": 5897, 
+        "model": "nutrition.nutrition", 
+        "fields": {
+            "item": "hamburger", 
+            "place": "mcdonalds", 
+            "calories": "265"
+        }
     }
 ]
