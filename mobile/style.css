@@ -1,0 +1,103 @@
+body {
+	margin:50px 0px; padding:0px;
+	text-align:center;
+        background-color:rgb(224,228,204);
+    font:  Helvetica;
+        font-size:50px;
+}
+	
+#content {
+	width:90%;
+	text-align: center;
+	margin:0px auto;
+	padding:15px;
+    background-color:rgb(167,219,216);
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    font-family:Helvetica;
+    color:rgb(84,36,55);
+
+}
+
+#content h1{
+	font-size:100px;
+}
+
+#restaurant {
+	margin-top: 20px;
+    width:80%;
+    height:90px;
+        font-size:70px;
+        color:rgb(84,36,55);
+        border-radius:15px;
+        background-color:rgb(224,228,204);
+        border: none;
+}
+
+#submit {
+	text-align: center;
+	 color:rgb(84,36,55);
+	font-size:70px;
+	margin-bottom: 50px;
+    width:80%;
+    height:90px;
+    border-radius: 15px;
+    border: 10px;
+    border-color: rgb(84,36,55);
+    border-style: none;
+       background-color:rgb(224,228,204);
+}
+
+#mytable {
+	width: 700px;
+	padding-left:10px;
+	margin: 0;
+	font: normal 11px auto;
+	color: #4f6b72;
+	background: #E6EAE9;
+}
+
+th {
+	font: bold 11px;
+	color: rgb(84,36,55);
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	border-top: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 6px 6px 6px 12px;
+	background: #CAE8EA url(images/bg_header.jpg) no-repeat;
+}
+
+td {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #4f6b72;
+}
+
+td img {
+    width:100px;
+    height:100px;
+}
+
+#tble {
+	width:700px;
+	
+}
+#landingh1{
+	width:80%;
+	height:20%;
+
+	padding:50px;
+	padding-bottom: 20px;
+	line-height:80%;
+	color:white;
+	
+}
+
+#landingh1 span{
+		color:rgb(84,36,55);
+}

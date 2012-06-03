@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>LessBad</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        
+    </head>
+    <body>
+                <script>
+				$(function(){
+ 					 $('.textfill').textfill({ maxFontPixels: 300 });	
+					});
+			</script>
+       <div id="content">
+            <!-- <img src="lessbadbanner.png" alt="" /> <br /><br /> -->
+
+  				<h1>LessBad</h1>
+            Let us help you decide what to eat!<br /><br />
+            
+            Where are you going?  <input type="text" name="restaurant" id="restaurant" /> <br /><br />
+	    
+	    What are you planning on eating?   <input type="text" name="restaurant" id="restaurant" /> <br /><br />
+            
+            <input type="button" name="submit" id="submit" onclick="results();return false;" value="submit" />
+            
+       </div>
+    </body>
+    <script type="text/javascript">
+    
+    function results() {
+        var restaurant = document.getElementById("restaurant").value;
+        var table = "<html><head><title>";
+        table += restaurant;
+        table += "</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /></head><body>";
+        table += "<div id=\"tble\">";
+	table += "<table id=\"mytable\" cellspacing=\"0\">";
+	table += "<tr>";
+	table += "<th>IMAGE</th>";
+	table += "<th>NAME</th>";
+	table += "<th>CALORIES</th>";
+	table += "<th>FATS</th>";
+	table += "<th>CARBOHYDRATES</th>";
+        table += "<th>PROTEIN</th>";
+        table += "<th>SODIUM</th>";
+        table += "<th>KIND OF MEAL</th>";
+	table += "</tr>";
+	table += "<tr>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+        table += "<td>---</td>";
+        table += "<td>---</td>";
+        table += "<td>---</td>";
+	table += "</tr>";
+	table += "</table>";
+	table += "</div>";
+        table += "</body></html>";
+        var j = window.open('');
+        j.document.write(table);
+        j.document.close();
+       
+    }
+        
+    </script>
+</html>
