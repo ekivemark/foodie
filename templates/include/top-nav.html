@@ -7,67 +7,9 @@
 
         <div class="logo">Less Bad</div>
     
-        <div class="user-nav no-print">
-            {% if user.is_authenticated %}
-
-                Welcome {{user.first_name}} {{user.last_name}}
-                &nbsp;|&nbsp;
-                <a href="/accounts/logout">logout</a>
-                &nbsp;|&nbsp;
-                <a href="/location/create">change location</a></span>
-                <div class="location">
-                    <span>{{user.get_profile.location}}</span>
-                </div>
-            {% else %}
-                <a href="/accounts/smscode">login</a>
-            {% endif %}
-        <br/>
-
-        </div>
-
-        {% if user.is_authenticated %}
-        {% endif %}
+    
     </div>
 
 </div>
 
-{% if user.is_authenticated %}
-<div id="sub-nav-wrapper" class="no-print">
-    <div class="sub-nav">
-
-        
-        <ul class="subnav-home">
-            <li><a href="/intake/create">Initial Intake</a></li>
-        </ul>
-        
-        
-        <ul class="subnav-survey">
-        </ul>
-
-
-        <ul class="subnav-vitals">
-            <li><a href="/tracker/search">Input Viral Load/CD4 Count</a></li>
-        </ul>
-        
-        <ul class="subnav-reports">
-            <li><a href="javascript:window.open('/export/export-window?r_title=HIV Report for DC Health Dept/ CDC&r_url=/export/cdc-to-excel','export_window','status=1,menubar=1,width=550,height=350');">HIV Report for DC Health Department</a></li>
-            <li><a href="javascript:window.open('/export/export-window?r_title=Basic HIV Report&r_url=/export/hiv-to-excel','export_window','status=1,menubar=1,width=550,height=350');">Basic HIV Report</a></li>
-            <li><a href="javascript:window.open('/export/export-window?r_title=NOMS Report for SAIC&r_url=/export/noms-to-excel','export_window','status=1,menubar=1,width=550,height=350');">NOMS Report for SAIC</a></li>
-            <li><a href="./custom">Custom Report</li>
-        </ul>
-
-        <ul class="subnav-outreach">
-            <li><a href="/outreach/daily-outreach-summary">Daily Outreach Summary</a></li>
-        </ul>
-
-        <ul class="subnav-tools">
-            <li><a href="/services/search-by-name">Referral & Linkages</a></li>
-            <li><a href="/tools/search-by-name">Assign Coupons</a></li>
-            <li><a href="/sms-reminders/appointment/search-by-name">SMS Appointment Reminder</a></li>
-            <li><a href="/sms-reminders/adherence/search-by-name">SMS Adherence</a></li>
-            <li><a href="/grants/stats">Grant Statistics</a></li>
-        </ul>
-    </div>
-</div>
-{% endif %}
 

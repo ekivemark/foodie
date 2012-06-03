@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>LessBad</title>
+        <link rel="stylesheet" type="text/css" href="http://foodie.ekive.com/style.css" />
+        
+    </head>
+    <body>
+      
+       <div id="content">
+            <h1>Have one of these instead</h1>
+	    {% for s in suggestions %}
+            
+	    {{s.item}} with {{s.calories}} calories<br>
+	    {% endfor %}
+       </div>
+    </body>
+   
+</html>
