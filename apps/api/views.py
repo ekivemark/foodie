@@ -80,7 +80,7 @@ def incoming(request):
 
 
 
-    message = "Big Mac has 563 Calories. Try a Cheeseburger (313, or a Hamburger (265)"
+    message = "Big Mac has 563 Calories. Try a Cheeseburger (313), or a Hamburger (265) and be LessBadd!"
     # message = "Get the Small Fries! Thanks for being LessBadd!"
 
 
