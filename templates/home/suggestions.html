@@ -7,7 +7,8 @@
     <body>
       
        <div id="content">
-            <h1>Have one of these instead</h1>
+            <h1>A {{ original.item }} has {{original.calories}} calories.</h1>
+	    <h1>Have one of these instead</h1>
 	    {% for s in suggestions %}
             
 	    {{s.item}} with {{s.calories}} calories<br>
