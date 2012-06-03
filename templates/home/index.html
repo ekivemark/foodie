@@ -1,35 +1,66 @@
-{% extends "base.html" %}
-
-{% block active_nav_tab %}home-active{% endblock %}
-
-
-{% block featureBox %}
-
-<div class="header-box">
-    <h1>Less Bad</h1>
-</div
-
-<div class="content-box">
-    
-    <div class="content-group">
-
-     Select a common task below or use the navigation above.
-
-    </div>
-    
-    
-    <div class="task-group">
-        <h2>Test</h2>
-        <ul class="link-list">
-            <li><a href="/api/incoming">Incoming</a></li>
-        </ul>
+<html>
+    <head>
+        <title>LessBad</title>
+        <link rel="stylesheet" type="text/css" href="http://foodie.ekive.com/style.css" />
         
-        <ul class="link-list">
-            <li><a href="/api/outgoing">Outgoing</a></li>
-        </ul>
+    </head>
+    <body>
+                <script>
+				$(function(){
+ 					 $('.textfill').textfill({ maxFontPixels: 300 });	
+					});
+			</script>
+       <div id="content">
+            <!-- <img src="lessbadbanner.png" alt="" /> <br /><br /> -->
 
-
-    </div>
-</div>
-          
-{% endblock %}
+  				<h1>LessBad</h1>
+            Let us help you decide what to eat!<br /><br />
+            
+            Where are you going?  <input type="text" name="restaurant" id="restaurant" /> <br /><br />
+	    
+	    What are you planning on eating?   <input type="text" name="restaurant" id="restaurant" /> <br /><br />
+            
+            <input type="button" name="submit" id="submit" onclick="results();return false;" value="submit" />
+            
+       </div>
+    </body>
+    <script type="text/javascript">
+    
+    function results() {
+        var restaurant = document.getElementById("restaurant").value;
+        var table = "<html><head><title>";
+        table += restaurant;
+        table += "</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /></head><body>";
+        table += "<div id=\"tble\">";
+	table += "<table id=\"mytable\" cellspacing=\"0\">";
+	table += "<tr>";
+	table += "<th>IMAGE</th>";
+	table += "<th>NAME</th>";
+	table += "<th>CALORIES</th>";
+	table += "<th>FATS</th>";
+	table += "<th>CARBOHYDRATES</th>";
+        table += "<th>PROTEIN</th>";
+        table += "<th>SODIUM</th>";
+        table += "<th>KIND OF MEAL</th>";
+	table += "</tr>";
+	table += "<tr>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+	table += "<td>---</td>";
+        table += "<td>---</td>";
+        table += "<td>---</td>";
+        table += "<td>---</td>";
+	table += "</tr>";
+	table += "</table>";
+	table += "</div>";
+        table += "</body></html>";
+        var j = window.open('');
+        j.document.write(table);
+        j.document.close();
+       
+    }
+        
+    </script>
+</html>

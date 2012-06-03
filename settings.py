@@ -156,10 +156,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     # 'autofixture',
     #'south',
-    'django_extensions',
     #'django_ses',
     'apps.api',
     'apps.home',
+    'apps.nutrition',
 )
 
 # A sample logging configuration. The only tangible logging
