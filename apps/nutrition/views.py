@@ -28,7 +28,9 @@ from forms import SuggestForm
 #    print "done."
 
 def suggest(request):
+    
     if request.method == 'POST':
+        
         form = SuggestForm(request.POST)
 
         if form.is_valid():
@@ -38,6 +40,7 @@ def suggest(request):
             return render_to_response('home/suggestions.html', context,
                               RequestContext(request))              
         else:
+            print "the form has errors"
             messages.error(request, "Oops. The form contains errors.")
             return render_to_response('home/index.html',
                               RequestContext(request,
