@@ -31,5 +31,5 @@ class SuggestForm(forms.Form):
             suggestion['place']=s.place
             suggestion['calories']=s.calories
             l.append(json.dumps(suggestion, indent=4))
-        
-        return suggestions
+        retval = {'suggestions':suggestions, 'original':nut[0]}
+        return retval

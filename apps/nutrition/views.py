@@ -36,8 +36,11 @@ def suggest(request):
 
         if form.is_valid():
 
-            suggestions = form.save()
-            context = {'suggestions':suggestions }
+            retval = form.save()
+            context = {'suggestions':retval['suggestions'],
+                       'original':retval['original'],
+                       }
+            print context
             return render_to_response('home/suggestions.html', context,
                               RequestContext(request))              
         else:
