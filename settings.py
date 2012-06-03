@@ -154,10 +154,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
-    'autofixture',
+    # 'autofixture',
     #'south',
     'django_extensions',
-    'django_ses',
+    #'django_ses',
     'apps.api',
     'apps.home',
 )
