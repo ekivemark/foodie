@@ -2,6 +2,7 @@
 import csv
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib import messages
 from django.template import RequestContext
 from models import *
 from forms import SuggestForm
@@ -42,11 +43,11 @@ def suggest(request):
         else:
             print "the form has errors"
             messages.error(request, "Oops. The form contains errors.")
-            return render_to_response('home/index.html',
+            return render_to_response('home/index2.html',
                               RequestContext(request,
                                              {'form': form}))
     
-    return render_to_response('home/index.html', {'form':SuggestForm()},
+    return render_to_response('home/index2.html', {'form':SuggestForm()},
                               RequestContext(request))
 
     
