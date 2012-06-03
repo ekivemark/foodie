@@ -20,14 +20,14 @@ urlpatterns = patterns('',
     # Search urls ---------------------------------------------------------
 
     # Home url -----------------------------------------------------------
-    url(r'^home/$', 'foodie.apps.home.views.home'),
+    (r'^home/$', include('foodie.apps.home.views.home')),
 
 
     # App urls -----------------------------------------------------------
-     url(r'^api/(?P<pat_id>\S+)$', 'foodie.apps.api.urls',
-        name='home'),
+    #(r'^api/$', include('foodie.apps.api.urls')),
 
-
+    url(r'^api/message/', 'foodie.apps.api.views.sms_messages', name="sms_messages"),
+    url(r'^api/send/$', 'foodie.apps.api.views.sms_send', name='sms_send'),
     # Static Pages
 
 

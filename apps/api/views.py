@@ -5,12 +5,16 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
+from forms import *
 from utils import *
 
 
-@login_required
-@access_required("tester")
+#@login_required
+#@access_required("tester")
 def sms_send(request):
+
+    print "in the send"
+
     if request.method == 'POST':
 
         form = SMSSendForm(request.POST)
@@ -32,9 +36,14 @@ def sms_send(request):
         context_instance = RequestContext(request))
 
 
-@login_required
-@access_required("tester")
+#@login_required
+#@access_required("tester")
 def sms_messages(request):
+
+
+    print "in Messages"
+
+
     smsmessages=get_messages()
     return render_to_response('smsreminders/messages.html',
             {'smsmessages': smsmessages},

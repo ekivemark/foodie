@@ -9,9 +9,6 @@ from utils import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-
-
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -21,7 +18,7 @@ urlpatterns = patterns('',
 
 
     # App urls -----------------------------------------------------------
-     url(r'^incoming/$',incoming,
+    url(r'^incoming/$',incoming,
         name='incoming'),
 
     url(r'^send/$', sms_send, name='sms_send'),
