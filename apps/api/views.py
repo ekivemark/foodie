@@ -71,7 +71,7 @@ def incoming(request,From=""):
 
 
     from_number = request.GET['from']
-    message = request.GET['message']
+    message = request.GET['body']
 
     print from_number
     print message
