@@ -15,6 +15,10 @@ def sms_send(request):
 
     print "in the send"
 
+    print request.GET
+    print request.POST
+    
+
     if request.method == 'POST':
 
         form = SMSSendForm(request.POST)
