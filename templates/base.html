@@ -1,0 +1,40 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <title>{% block pretitle %}{% endblock %}{% block title %}Less Bad{% endblock %}{% block posttitle %}{% endblock %}</title>
+
+  <meta charset="utf-8">
+  {% block head %}
+  {% endblock %}
+
+  {% include "include/head.html" %}
+
+  {% block extra_head %}
+  {% endblock %}
+</head>
+
+<body class="{% block active_nav_tab %}{% endblock %}" {% block body_load_trigger %}{% endblock %}>
+  {% include "include/top-nav.html" %}
+
+  <div id="page">
+    {% include "include/messages.html" %}
+
+	{%block featureBox %}
+	{% endblock %}
+
+	{%block extra_body %}
+	{% endblock%}
+
+
+  </div>
+
+  {% include "include/footer.html" %}
+
+{% block footer_js %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+</html>

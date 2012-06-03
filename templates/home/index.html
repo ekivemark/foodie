@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block active_nav_tab %}home-active{% endblock %}
+
+
+{% block featureBox %}
+
+<div class="header-box">
+    <h1>Less Bad</h1>
+</div
+
+<div class="content-box">
+    
+    <div class="content-group">
+
+     Select a common task below or use the navigation above.
+
+    </div>
+    
+    
+    <div class="task-group">
+        <h2>Test</h2>
+        <ul class="link-list">
+            <li><a href="/api/incoming">Incoming</a></li>
+        </ul>
+        
+        <ul class="link-list">
+            <li><a href="/api/outgoing">Outgoing</a></li>
+        </ul>
+
+
+    </div>
+</div>
+          
+{% endblock %}
