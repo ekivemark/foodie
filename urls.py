@@ -20,14 +20,14 @@ urlpatterns = patterns('',
     # Search urls ---------------------------------------------------------
 
     # Home url -----------------------------------------------------------
-    url(r'^home/$', 'foodie.apps.home.views.home'),
+    url(r'^$', 'foodie.apps.home.views.home'),
 
 
     # App urls -----------------------------------------------------------
-     url(r'^api/(?P<pat_id>\S+)$', 'foodie.apps.api.urls',
-        name='home'),
+    # url(r'^api/(?P<pat_id>\S+)$', 'foodie.apps.api.urls',
+    #    name='home'),
 
-
+    (r'^nutrition/',  include('foodie.apps.nutrition.urls')),
     # Static Pages
 
 
