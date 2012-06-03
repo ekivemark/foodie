@@ -70,8 +70,8 @@ def incoming(request,From=""):
     """Respond and greet the caller by name."""
 
 
-    from_number = request.GET['from']
-    message = request.GET['body']
+    from_number = request.GET['From']
+    message = request.GET['Body']
 
     print from_number
     print message
