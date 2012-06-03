@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block extra_head %}
+<title>LessBad</title>
+{% endblock %}
+
+{% block featureBox %}
+
+    <h2>Let us help you decide what to eat!</h2>
+        <form enctype="multipart/form-data" action="" method="POST">
+
+        {% if error %}
+          <p class="error">ERROR: {{error}}</p>
+        {% endif %}
+        
+        
+        {% if form.errors %}
+          <p class="error">Please correct the errors below.</p>
+        {% endif %}
+    
+        {{ form.as_p }}
+            
+        
+        {% csrf_token %}
+        <input type="submit" value="Submit" />
+        </form>
+    
+{% endblock %}
