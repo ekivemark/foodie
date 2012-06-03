@@ -28,6 +28,9 @@ urlpatterns = patterns('',
 
     url(r'^api/message/', 'foodie.apps.api.views.sms_messages', name="sms_messages"),
     url(r'^api/send/$', 'foodie.apps.api.views.sms_send', name='sms_send'),
+    url(r'^api/incoming/$', 'foodie.apps.api.views.incoming', name='incoming'),
+
+
     # Static Pages
 
 

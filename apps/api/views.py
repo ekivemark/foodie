@@ -4,10 +4,12 @@ __author__ = 'mark'
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
+
 
 from forms import *
-from utils import *
-
+from utils import send_sms_twilio
+# import twilio.twiml
 
 #@login_required
 #@access_required("tester")
@@ -55,14 +57,48 @@ def sms_messages(request):
 
 
 
-def incoming(request):
+def incoming(request,From=""):
 
 
     print "In incoming"
 
-    return render_to_response('home/index.html', {
-        'next':set_next,
-        'server_address':request.get_host(),},
-        RequestContext(request))
+    # Try adding your own number to this list!
+    callers = {
+        "+17036232789": "ekivemark",
+         }
+
+    """Respond and greet the caller by name."""
+
+
+    from_number = request.GET['from']
+    message = request.GET['message']
+
+    print from_number
+    print message
+
+
+    if from_number in callers:
+        message = callers[from_number] + ", thanks for the message!"
+    else:
+        message = "Get the Small Fries! Thanks for being LessBadd!"
+
+
+    twilio_body = message
+
+    print "Want to send this:",twilio_body
+
+    resp = send_sms_twilio(twilio_body, from_number, settings.TWILIO_DEFAULT_FROM)
+
+    # send_sms_twilio(twilio_body,from_number, settings.TWILIO_DEFAULT_FROM)
+
+    print resp
+
+
+    return HttpResponseRedirect(curlinput)
+
+
+
+
+
 
 
