@@ -9,6 +9,9 @@ from django.template import RequestContext
 
 def incoming(request):
 
+
+    print "In incoming"
+
     return render_to_response('home/index.html', {
         'next':set_next,
         'server_address':request.get_host(),},

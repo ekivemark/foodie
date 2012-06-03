@@ -8,6 +8,9 @@ from views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from views import *
+
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -17,7 +20,7 @@ urlpatterns = patterns('',
 
 
     # App urls -----------------------------------------------------------
-     url(r'^incoming$',incoming,
+     url(r'^incoming/$',incoming,
         name='incoming'),
 
 
