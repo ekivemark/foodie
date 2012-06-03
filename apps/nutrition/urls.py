@@ -8,5 +8,6 @@ from views import *
 urlpatterns = patterns('',
 
     url(r'^loaddata$', loaddata, name='loaddata'),
+    url(r'^suggest$', suggest, name='suggest'),
     
 )
