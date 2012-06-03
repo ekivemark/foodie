@@ -11,25 +11,28 @@
 
   				<h1>LessBad</h1>
             Let us help you decide what to eat!<br /><br />
-            
-            Where are you going?  <input type="text" name="restaurant" id="restaurant" /> <br /><br />
+             <form action="" method="POST">
+            Where are you going?  <input type="text" name="place" id="restaurant" /> <br /><br />
 	    
-	    What are you planning on eating?   <input type="text" name="food" id="food" /> <br /><br />
+	    What are you planning on eating?   <input type="text" name="item" id="food" /> <br /><br />
             
+            {% csrf_token %}
             <input type="button" name="submit" id="submit" onclick="results();return false;" value="submit" />
-            
+              </form>
+              
+              
        </div>
     </body>
     <script type="text/javascript">
     
     function results() {
-    
+    	/*
     	var rest = document.getElementById('restaurant');
     	var rest_name = rest.value;
     	
     	var food = document.getElementById('food');
     	var food_name = food.value;
-    	
+    	*/
     	
     	
         var restaurant = document.getElementById("restaurant").value;
