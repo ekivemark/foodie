@@ -94,7 +94,7 @@ def incoming(request,From=""):
     print resp
 
 
-    return HttpResponseRedirect(curlinput)
+    return HttpResponseRedirect('/')
 
 
 
