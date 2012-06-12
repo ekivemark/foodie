@@ -254,7 +254,11 @@ def Lookup_Restaurant(food_joint=""):
     # We need to check for derivations of names
     # eg. McDonalds, Mc Donalds, McD, MickeyD
 
-    if food_joint == "taco bell":
+    if   food_joint == "taco bell":
+        return True
+    elif food_joint == "mcdonalds" or food_joint =="mickeyd" or food_joint == "mcd":
+        return True
+    elif food_joint == "burger king" or food_joint == "bk":
         return True
 
 
