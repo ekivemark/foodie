@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 import re
 import os, uuid, json
+from ..mobile.views import Check_For_Number, Add_Number, Clean_Number, Get_Profile
 
 from forms import *
 from utils import send_sms_twilio
@@ -82,98 +83,256 @@ The incoming message from Twilio looks like this:
 HTTP/1.1"
 200 1000
 
+
+    # Developing a dictionary to handle the parsed Twilio message
+    api_date =
+    {'from_number':from_number,
+     'new_number': True,
+     'body_word_count':0,
+     'body_message_original': "",
+     'body_message_lower':"",
+     'body_word_list':parsed_body_list,
+     'help_word_count':0,
+     'help_words': help_result,
+     'help_word_list':parsed_help_list,
+     'diet_word_count':0,
+     'diet_word_list':parsed_diet_list,
+     'diet_words': diet_result,
+     'diet_message':"",
+     'diet_match': False,
+     'place_word_count':0,
+     'place_words':"",
+     'place_word_list':parsed_place_list,
+     'place_message':"",
+     'place_match': False,
+     'food_word_count':0,
+     'food_words': food_result,
+     'food_word_list':parsed_food_list,
+     'food_message':"",
+     'food_match':False,
+     }
+
     """
 
+
+    api_data = {'from_number':"",
+                'new_number': True,
+                'body_word_count':0,
+                'body_message_original': "",
+                'body_message_lower':"",
+                'body_word_list':[],
+                'help_word_count':0,
+                'help_words': "",
+                'help_message':"",
+                'help_word_list':"",
+                'diet_word_count':0,
+                'diet_word_list':[],
+                'diet_words': "",
+                'diet_message':"",
+                'diet_match': False,
+                'food_word_count':0,
+                'food_words': "",
+                'food_word_list':[],
+                'food_message':"",
+                'food_match': False,
+                'place_word_count':0,
+                'place_word_list':[],
+                'place_words':"",
+                'place_message':"",
+                'place_match': False,
+                }
     print "In incoming"
 
     # step 1 - Get the number and the message
     try:
         from_number = request.GET['From']
         message = request.GET['Body']
+
+        api_data['from_number'] = from_number
+        api_data['body_message_original'] = message
     except:
         print "Nothing passed to incoming"
-        from_number = ""
-        message = ""
 
-        jsonstr = {'code':200,
-                   'message': "Empty Message"}
+        api_data['from_number']  = ""
+        api_data['body_message_original'] = ""
+
+        jsonstr = {'code':404,
+                   'message': api_data}
         jsonstr = json.dumps(jsonstr, indent=4,)
-        return HttpResponse(jsonstr, status=200, mimetype="text/plain")
+
+        return HttpResponse(jsonstr, status=404, mimetype="text/plain")
+
 
     print request.GET
 
     print "From:", from_number
     print "Body:", message
 
+    # Now we setup the message for processing
+    api_data['body_message_lower'] = message.lower()
+    api_data['body_word_list'] = Text_To_List(message.lower())
+
+    # Check if a known number
+
+    number_result = Check_For_Number(from_number)
+    print "Check for Number returned:", number_result
+
+    # Pull profile for known number and add to dictionary
+    if number_result != False:
+        number_profile = Get_Profile(from_number)
+        print number_profile
+
+    if number_result != from_number:
+        print "there is no record of that number:",from_number
+    if from_number!="" and number_result!="":
+        create_profile_result = Add_Number(from_number)
+        print create_profile_result
+
+
+    # Add Dispatcher routine here
+
+
+
+    # Number passed with no Body
+    # Send a welcome message in response
+
+    if message == "":
+        api_data['help_message']="Welcome to BMoreGood.com. Send HELP or Fast Food Place and what you want to eat and we will give you a healthier suggestion."
+        if from_number != "":
+            send_sms_twilio(api_data['help_message'], from_number, settings.TWILIO_DEFAULT_FROM)
+        jsonstr = {'code':200,
+                   'message': api_data}
+        jsonstr = json.dumps(jsonstr, indent=4,)
+        return HttpResponse(jsonstr, status=200, mimetype="text/plain")
+
+    # Test for Profile - save settings. eg. Diet
+    # Test for Help
+
 
     # Now test for Help
-    help_result = Parse_For_Help(message, from_number)
+    api_data_return = Parse_For_Help(api_data)
+    if api_data_return != {}:
+        api_data = api_data_return
+
+    if api_data['help_word_count']==0:
+        help_result = False
+    else:
+        help_result = True
 
     if help_result == True:
         # We had a help request - nothing more to do so return
-        print "Help Result:",help_result
+        print "Help Result:",api_data_return
         jsonstr = {'code':200,
-                   'message': "Help requested from:"+from_number+":"+message}
+                   'message': api_data}
         jsonstr = json.dumps(jsonstr, indent=4,)
         return HttpResponse(jsonstr, status=200, mimetype="text/plain")
 
 
     # We have to evaluate the message
 
-    restaurant_result = Parse_For_Restaurant(message, from_number)
+    restaurant_result = None
+    api_data_return = Parse_For_Restaurant(api_data)
+    if api_data_return != {}:
+        api_data = api_data_return
+        restaurant_result = api_data['place_words']
 
-    print "Restaurant Result:[", restaurant_result,"]"
-    if restaurant_result == None:
+
+    print "Restaurant Result:", restaurant_result,"."
+    if restaurant_result == None and from_number!="":
         # We didn't match on a restaurant
         send_back = "Sorry, we don't know where you are. Tell us the Fast Food Restaurant and meal you want to check. eg. McDonalds Big Mac"
-        twilio_body = send_back
-        send_sms_twilio(twilio_body, from_number, settings.TWILIO_DEFAULT_FROM)
+        api_data['place_message'] = send_back
+        send_sms_twilio(send_back, from_number, settings.TWILIO_DEFAULT_FROM)
         jsonstr = {'code': 404,
-                   'message': "From: "+from_number+":"+message,
+                   'message': api_data,
                    'error': send_back}
         jsonstr = json.dumps(jsonstr, indent=4,)
         return HttpResponse(jsonstr, status=404, mimetype="text/plain")
 
+    # Modifying to use api_data dictionary
+    # Got this far
+    ######################################
+
 
     # If we get here we need to check for diet type then meal to compare
+    # first we strip the restaurant_result from the initial
+    diet_result = None
+    api_data_return = Parse_For_Diet(api_data)
+    if api_data_return != {}:
+        api_data = api_data_return
+        diet_result = api_data['diet_words']
 
+
+    # After assessing Diet guide we need to check for food choice and pick an alternative
+    food_result = None
+    api_data_return = Parse_For_Food(api_data)
+    if api_data_return != {}:
+        api_data = api_data_return
+        Food_result = api_data['food_words']
+
+    # if there is no food choice to compare against then we need to pull the
+    # food options for the restaurant and make a suggestion.
+
+    food_suggestion = None
+
+
+    # Our work here is done. Tidy up and be on our way.
 
     # message = "Big Mac has 563 Calories. Try a Cheeseburger (313), or a Hamburger (265) and be LessBadd!"
     # message = "Get the Small Fries! Thanks for being LessBadd!"
 
-    # twilio_body = message
-    # print "Want to send this:",twilio_body
-    # resp = send_sms_twilio(twilio_body, from_number, settings.TWILIO_DEFAULT_FROM)
-    # send_sms_twilio(twilio_body,from_number, settings.TWILIO_DEFAULT_FROM)
-    # print resp
 
     jsonstr = {'code':200,
-               'message': "From:"+from_number+": At:"+restaurant_result.title()+"["+message+"]"}
+               'message': api_data}
     jsonstr = json.dumps(jsonstr, indent=4,)
     return HttpResponse(jsonstr, status=200, mimetype="text/plain")
 
 
-def Parse_For_Help(body_text="", return_number=""):
+
+def Parse_For_Help(api_dict={}):
     """
     Body from SMS via Twilio needs to be parsed and action taken
 
     Return False if no request for help
     Otherwise return True
+
     """
 
-    if body_text == "":
+    if api_dict == {}:
         # Nothing to do
-        return False
+        return api_dict
 
     # we have something to process
     # force to lowercase
 
+    body_text = api_dict['body_message_original'].lower()
+    api_dict['body_message_lower'] = body_text
     text_to_parse = Text_To_List(body_text)
+    api_dict['body_word_list'] = text_to_parse
+    return_number = api_dict['from_number']
 
+    help_words = ""
+    help_word_list = []
     detailed_help = False
     step = 0
     getting_help = False
     result = ""
+
+    # if first word indicates help required process help routine
+    # otherwise exit the help routine
+
+    if body_text[0]=="?":
+        print "Got:",api_dict['body_message_original'][0]
+        do_help = True
+    elif text_to_parse[0]=="help" or text_to_parse[0]=="help?":
+        print "Got:",text_to_parse[0]
+        do_help = True
+    else:
+        print "Not a Help Query"
+        do_help = False
+        return api_dict
+
+
     for i in range(len(text_to_parse)):
 
         word = text_to_parse[i]
@@ -183,39 +342,77 @@ def Parse_For_Help(body_text="", return_number=""):
                 # Just help sent so send a basic response
                 print "You asked for help using this command: ",word
                 help_text = "text name of fast food place &, optionally, diet you follow & item you are thinking of. We will send an alternative. BmoreGood.com"
+                api_dict['help_message'] = help_text
+                help_words = help_words + word
+                api_dict['help_words'] = word
+
+                help_word_list.append(word)
+
+                api_dict['help_word_count'] = len(help_word_list)
+                api_dict['help_word_list']  = help_word_list
 
                 if return_number !="":
                     result = send_sms_twilio(help_text, return_number, settings.TWILIO_DEFAULT_FROM)
                     print result
-                return True
+
+                return api_dict
             else:
                 detailed_help = True
+                help_words = help_words = word + " "
+                help_word_list.append(word)
                 # There is more to process. We need to give a detailed help response
 
         elif i>=1:
             if word=="diet" or word=="diettype" or word=="diet-type":
+                if detailed_help == True:
+                    help_words = help_words + word
+                    help_word_list.append(word)
+                    api_dict['help_word_list'] = help_word_list
                 # Send help on diet
+
                 print "You asked for help on diet: ", word
                 help_text = "diet type tailors suggestions to suit your diet(if possible):Options LowSodium,GlutenFree,LowCal. BMoreGood.com"
+                api_dict['help_message'] = help_text
+                api_dict['help_words']   = help_words
+                api_dict['help_word_count'] = len(api_dict['help_word_list'])
+
                 if return_number !="":
                     result = send_sms_twilio(help_text, return_number, settings.TWILIO_DEFAULT_FROM)
                     print result
-                return True
+
+                return api_dict
+            else:
+                if word=="low" or word=="sodium" or word=="gluten" or word=="free" or word=="cal" or word=="calorie":
+                    help_words = help_words + word+" "
+                    help_word_list.append(word)
+                    api_dict['help_word_list'] = help_word_list
+                    api_dict['help_word_count'] = len(help_word_list)
 
     # if drop to this point we have not dealt with any help text
     # so return False
-    return False
+    return api_dict
 
 
-def Parse_For_Restaurant( body_text="", return_number=""):
 
+def Parse_For_Restaurant( api_dict={}):
+
+    if api_dict == {}:
+    # Nothing to do
+        return api_dict
+
+    # we have something to process
+    # force to lowercase
+
+    body_text = api_dict['body_message_original'].lower()
 
     text_to_parse = Text_To_List(body_text)
 
     fast_food_place = ""
+    fast_food_word_list = []
     matched_place = False
     for i in range(len(text_to_parse)):
         word = text_to_parse[i]
+        fast_food_word_list.append(word)
         fast_food_place = fast_food_place+word
         print "Step:",i," check for Fast Food Place: ",fast_food_place
         # search fast food places
@@ -226,10 +423,55 @@ def Parse_For_Restaurant( body_text="", return_number=""):
         if matched_place == False:
             fast_food_place = fast_food_place+" "
         else:
-            return fast_food_place
+            api_dict['place_word_count'] = i +1
+            api_dict['place_words'] = fast_food_place
+            api_dict['place_match'] = matched_place
+            api_dict['place_word_list'] = fast_food_word_list
+            return api_dict
 
 
-    return
+    if matched_place == False:
+        api_dict['place_word_count'] = 0
+        api_dict['place_match'] = matched_place
+
+    return api_dict
+
+
+def Parse_For_Diet(api_dict={}):
+
+    if api_dict == {}:
+    # Nothing to do
+        return api_dict
+
+    # we have something to process
+
+    # We should have processed the Restaurant so we can use the place_word_count as
+    # an offset in to the body_word_list
+
+    print "In Parse_For_Diet, with:"
+    print api_dict
+
+
+
+    return api_dict
+
+def Parse_For_Food(api_dict={}):
+
+    if api_dict == {}:
+    # Nothing to do
+        return api_dict
+
+    # we have something to process
+
+    # We should have processed the Restaurant and Diet so we can use the place_word_count
+    # and diet_word_count as an offset in to the body_word_list
+
+    print "In Parse_For_Food, with:"
+    print api_dict
+
+
+
+    return api_dict
 
 
 def Text_To_List(body_text=""):
@@ -258,8 +500,9 @@ def Lookup_Restaurant(food_joint=""):
         return True
     elif food_joint == "mcdonalds" or food_joint =="mickeyd" or food_joint == "mcd":
         return True
-    elif food_joint == "burger king" or food_joint == "bk":
+    elif food_joint == "burger king" or food_joint == "bk" or food_joint == "burgerking":
         return True
-
+    elif food_joint == "kfc" or food_joint == "kentucky fried chicken" or food_joint == "kentuckyfriedchicken":
+        return True
 
     return False

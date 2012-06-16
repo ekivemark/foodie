@@ -9,7 +9,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    url(r'^$', home, name='home'),
-    url(r'^test$', test, name='test'),
+    url(r'^record/(?P<phone_number>[^/]+)/$', Show_Profile, name='profile'),
+    url(r'^history/(?P<phone_number>[^/]+)/$', history, name='history'),
+    url(r'^$', Show_Profile , name='profile'),
     
 )

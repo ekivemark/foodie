@@ -14,7 +14,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Mark Scirmshire', 'mark+foodie@HealthCa.mp'),
+    ('Mark Scrimshire', 'mark+foodie@HealthCa.mp'),
 
 )
 MANAGERS = ADMINS
@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'apps.api',
     'apps.home',
     'apps.nutrition',
+    'apps.mobile',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block extra_head %}
+    <title>LessBadd</title>
+{% endblock %}
+
+{% block featureBox %}
+
+    <h2>Phone Profile:{{ phone.phone }}</h2>
+
+
+    Created:{{ phone.created }}<br />
+    Name:   {{ phone.name }} <br />
+    Last Message: {{ phone.last_msg }}<br />
+    Last Suggestion: {{ phone.last_suggested }}<br />
+    Last Food: {{ phone.last_food }}<br />
+    <form enctype="multipart/form-data" action="" method="POST">
+
+        {% if error %}
+            <p class="error">ERROR: {{error}}</p>
+        {% endif %}
+
+
+        {% if form.errors %}
+            <p class="error">Please correct the errors below.</p>
+        {% endif %}
+
+        {% for field in form %} }}
+            {{ field }}:{{ field.label }} : {{ field.value }}
+        {% endfor %}
+
+
+        <p>End of Form section</p>
+        {% csrf_token %}
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}

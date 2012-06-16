@@ -21,8 +21,9 @@ urlpatterns = patterns('',
 
     # Home url -----------------------------------------------------------
 
-    (r'^home/$', include('foodie.apps.home.views.home')),
-
+    (r'^home/$', include('foodie.apps.home.urls')),
+    url(r'^mobile/info/(?P<phone_number>[^/]+)/$', 'foodie.apps.mobile.views.Show_Profile', name='profile'),
+    (r'^mobile/$', include('foodie.apps.mobile.urls')),
 
     # App urls -----------------------------------------------------------
     #(r'^api/$', include('foodie.apps.api.urls')),
