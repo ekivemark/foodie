@@ -10,12 +10,17 @@ from django.template import RequestContext
 def home(request):
     try:
         set_next = request.GET['next']
+        set_place = request.GET['place']
+        set_item = request.GET['item']
 
     except:
         print "NO next in GET"
         set_next = "/"
+        set_place = ""
+        set_item = ""
 
     print set_next
+    print "Work on this:",set_place, set_item
 
 
     return render_to_response('home/index.html', {
