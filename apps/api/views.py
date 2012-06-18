@@ -719,7 +719,7 @@ def Lookup_Food_In_Place(place="", food_word=""):
         return
 
     print "Looking for ",food_word,"food in:",place
-    food_choices = Nutrition.objects.filter(place=place.upper,item__contains=food_word.upper).order_by('calories')
+    food_choices = Nutrition.objects.filter(place=place.upper,item__contains=food_word.upper).order_by('-calories')
 
     print "found:",food_choices
 
@@ -733,34 +733,60 @@ def Lookup_Food_In_Place(place="", food_word=""):
     if len(food_choices)>0:
         print "we have food choices:", f
 
-    nutrition_info=f[0]
-    print nutrition_info['calories']
+    cal_counter = 0
+    nutrition_info = {}
+    for item in food_choices:
+        cal_counter = cal_counter +1
+        if cal_counter == 1:
+            print ">>", item.item, item.calories
+            calorie_target = item.calories
+            found_item = item.item
+            # we just want the first record
+            nutrition_info = item
 
 
-    calorie_target = nutrition_info['calories']
-    #print calorie_target
+    print "the line we want:",nutrition_info
 
-    food_message = food_word +" has " + str(calorie_target)+" calories."
+    if nutrition_info != {}:
+        print found_item, calorie_target
+        found_item = Slim_Description(found_item, place)
+
+        food_message = found_item +" has " + str(calorie_target)+" cals."
 
 
     print "Target is to beat:",calorie_target," calories."
-    alternate_food_choice = Nutrition.objects.filter(place=place,calories__lte=calorie_target).order_by('-calories').exclude(calories__gte=calorie_target)[0]
+
+    alternate_food_choice = Nutrition.objects.filter(place=place.upper,calories__lt=calorie_target).order_by('-calories')
 
     print "alternates are:", alternate_food_choice
 
-    alt_food = alternate_food_choice
+    # Now we need to process these options and pick one
 
-    print alt_food.item
-    print "!!!!!!!!!!!!!!!!!!!!!"
-    print alt_food.calories
+    better_margin = float(0.8)
+    better_by = float(calorie_target) * better_margin
+    print "target is:",better_by
+
+    no_more_evaluation = False
+    alt_food = {}
+    for item in alternate_food_choice:
+        choice_indicator = ""
+        if item.calories <= better_by and no_more_evaluation==False:
+            choice_indicator = "GOOD:"
+            alt_food = item
+            if no_more_evaluation == False:
+                no_more_evaluation = True
+        else:
+            choice_indicator = ""
+
+        print ":>:",choice_indicator ,item.item, item.calories
 
 
 
     print alt_food.item, "at", alt_food.calories
-    food_message = food_message + "Why not try a "+alt_food.item+" at "+alt_food.calories
+    food_message = food_message + "Why not try a "+Slim_Description(alt_food.item,place)+" at "+str(alt_food.calories)
 
     saved_calories = int(calorie_target) - int(alt_food.calories)
-    food_message = food_message + " and save " + str(saved_calories) + " calories.BmoreGood.com"
+    food_message = food_message + ".Save " + str(saved_calories) + " cals. BmoreGood.com"
 
     print food_message
 
