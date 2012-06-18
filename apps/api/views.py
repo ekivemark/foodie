@@ -275,8 +275,10 @@ HTTP/1.1"
         if food_message != "" and from_number !="":
             # send the Twilio message
             send_back = food_message
-            if send_back == "":
+            if send_back == None:
                 send_back = "Sorry - No suggestions available at this time. BmoreGood.com"
+
+            print "Send Back Body is:",send_back
             send_sms_twilio(send_back,from_number, settings.TWILIO_DEFAULT_FROM)
             jsonstr = {'code': 200,
                        'message': api_data,
@@ -297,7 +299,7 @@ HTTP/1.1"
         # send the Twilio message
         send_back = food_to_evaluate
         api_data['food_message']= food_to_evaluate
-        if send_back == "":
+        if send_back == None:
             send_back = "Sorry - No suggestions available at this time. BmoreGood.com"
 
         send_sms_twilio(send_back,from_number, settings.TWILIO_DEFAULT_FROM)
