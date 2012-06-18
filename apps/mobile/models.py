@@ -15,8 +15,8 @@ class phone(models.Model):
     last_suggested  = models.CharField(max_length=100, default="", blank=True)
     access_code     = models.CharField(max_length=5, default="", blank=True)
     def __unicode__(self):
-        # return "%s, %s, %s" % (self.phone, self.created, self.access_code)
-        return "%s" % (self.phone)
+        return "%s, %s, %s" % (self.phone, self.created, self.access_code)
+        #return "%s" % (self.phone)
 
 
 class phone_history(models.Model):

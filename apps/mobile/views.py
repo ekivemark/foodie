@@ -54,6 +54,22 @@ def Add_Number(phone_number=""):
 
     return p
 
+def Update_Number_Profile(api_dict={}):
+    """
+    Get data from api_dict
+    Update phone record
+    Write new record to History file
+
+    """
+
+    if api_dict=={}:
+        # Nothing to do
+        return False
+
+    print "Updating Profile with ", api_dict
+
+    return api_dict
+
 
 def Get_Profile(phone_number=""):
 
@@ -112,7 +128,7 @@ def PrePad_Number(phone_number=""):
 
     return phone_number_new
 
-def history(phone_number=""):
+def Get_History(phone_number=""):
     """
     Lookup in history file and return values
 
@@ -123,11 +139,14 @@ def history(phone_number=""):
         return phone_number
 
     phone_number=Clean_Number(phone_number)
+    phone_number=PrePad_Number(phone_number)
+
+
 
     # Lookup Number and return profile
 
     try:
-        p = phone_history.objects.filter(phone=str(phone_number))
+        p = phone_history.objects.filter(phone=phone_number)
     except:
         return
 

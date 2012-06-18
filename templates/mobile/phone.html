@@ -13,6 +13,8 @@
     Last Message: {{ phone.last_msg }}<br />
     Last Suggestion: {{ phone.last_suggested }}<br />
     Last Food: {{ phone.last_food }}<br />
+
+    <em>access code: {{ phone.access_code }}</em>
     <form enctype="multipart/form-data" action="" method="POST">
 
         {% if error %}
