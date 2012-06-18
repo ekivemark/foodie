@@ -270,10 +270,11 @@ HTTP/1.1"
         print food_result
         food_message = api_data['food_message']
 
+        print "Message:", food_message
 
         if food_message != "" and from_number !="":
             # send the Twilio message
-            send_back = api_data['food_message']
+            send_back = food_message
             if send_back == "":
                 send_back = "Sorry - No suggestions available at this time. BmoreGood.com"
             send_sms_twilio(send_back,from_number, settings.TWILIO_DEFAULT_FROM)
